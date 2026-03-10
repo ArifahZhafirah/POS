@@ -7,11 +7,28 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class UserController extends Controller
 {
-    // public function index()
+    public function index()
+    {
+        $data = [
+            'level_id' => 2,
+            'username' => 'manager_tiga',
+            'nama' => 'Manager 3',
+            'password' => Hash::make('12345')
+        ];
+        UserModel::create($data);
+
+        $user = UserModel::all();
+        return view ('user', ['data' => $user]);
+    }
+}
+
+
+
+// public function index()
     // {
     //     $data = [
     //         'nama' => 'Pelanggan Pertama',
@@ -38,13 +55,12 @@ class UserController extends Controller
 
     // return view('user', ['data' => $user]);
     // }
-    public function index()
-    {
-        $user = UserModel::all();
-        return view('user', ['data' => $user]);
-    }
-    public function profile($id, $name){
-        return view('user.profile', compact('id', 'name'));
-    }
-}
+    // public function index()
+    // {
+    //     $user = UserModel::all();
+    //     return view('user', ['data' => $user]);
+    // }
+    // public function profile($id, $name){
+    //     return view('user.profile', compact('id', 'name'));
+    // }
 
